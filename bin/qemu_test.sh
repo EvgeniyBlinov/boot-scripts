@@ -15,4 +15,5 @@ qemu-system-x86_64 \
     -enable-kvm \
     -boot d \
     -m 1G \
-    -hdb "${DEVICE}"
+    -drive "file=${DEVICE},format=raw,cache=none"
+    #-hdb "${DEVICE}"

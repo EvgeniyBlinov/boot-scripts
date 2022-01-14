@@ -17,4 +17,5 @@ qemu-system-x86_64 \
     -bios OVMF.fd \
     -boot d \
     -m 1G \
-    -hdb "${DEVICE}"
+    -drive "file=${DEVICE},format=raw,cache=none"
+    #-hdb "${DEVICE}"
