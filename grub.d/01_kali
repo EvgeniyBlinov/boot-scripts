@@ -1,6 +1,5 @@
 # vim: set noet ci pi sts=0 sw=4 ts=4 :
 menuentry "Live system" --hotkey=l {
-#menuentry "Live system"  {
 	set gfxpayload=keep
 	set isofile="/iso/kali-linux-2022-W02-live-amd64.iso"
 	loopback loop $isofile
