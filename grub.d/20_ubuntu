@@ -1,0 +1,31 @@
+# vim: set noet ci pi sts=0 sw=4 ts=4 :
+submenu "Ubuntu 20.04.3-live-server-amd64" {
+	menuentry "Install Ubuntu Server" {
+		set gfxpayload=keep
+		set isofile="/iso/ubuntu-20.04.3-live-server-amd64.iso"
+		loopback loop $isofile
+		linux	(loop)/casper/vmlinuz   quiet  ---
+		initrd	(loop)/casper/initrd
+	}
+
+	grub_platform
+	if [ "$grub_platform" = "efi" ]; then
+	menuentry 'Boot from next volume' {
+		exit 1
+	}
+	menuentry 'UEFI Firmware Settings' {
+		fwsetup
+	}
+	fi
+
+	submenu 'Boot and Install with the HWE kernel' {
+		menuentry "Install Ubuntu Server" {
+			set gfxpayload=keep
+			set isofile="/iso/ubuntu-20.04.3-live-server-amd64.iso"
+			loopback loop $isofile
+			linux	(loop)/casper/hwe-vmlinuz   quiet  ---
+			initrd	(loop)/casper/hwe-initrd
+		}
+	}
+}
+

@@ -1,0 +1,51 @@
+# vim: set noet ci pi sts=0 sw=4 ts=4 :
+submenu "PuppyLinux fossapup64 9.5" {
+	menuentry "fossapup64 9.5" {
+		set isofile="/iso/fossapup64-9.5.iso"
+		loopback loop $isofile
+		linux  (loop)/vmlinuz pfix=fsck pmedia=cd
+		initrd (loop)/initrd.gz
+	}
+
+	menuentry "fossapup64 9.5 - Copy SFS files to RAM" {
+		set isofile="/iso/fossapup64-9.5.iso"
+		loopback loop $isofile
+		linux  (loop)/vmlinuz pfix=copy,fsck pmedia=cd
+		initrd (loop)/initrd.gz
+	}
+
+	menuentry "fossapup64 9.5 - Don't copy SFS files to RAM" {
+		set isofile="/iso/fossapup64-9.5.iso"
+		loopback loop $isofile
+		linux  (loop)/vmlinuz pfix=nocopy,fsck pmedia=cd
+		initrd (loop)/initrd.gz
+	}
+
+	menuentry "fossapup64 9.5 - RAM only" {
+		set isofile="/iso/fossapup64-9.5.iso"
+		loopback loop $isofile
+		linux  (loop)/vmlinuz pfix=ram,fsck pmedia=cd
+		initrd (loop)/initrd.gz
+	}
+
+	menuentry "fossapup64 9.5 - No X" {
+		set isofile="/iso/fossapup64-9.5.iso"
+		loopback loop $isofile
+		linux  (loop)/vmlinuz pfix=nox,fsck pmedia=cd
+		initrd (loop)/initrd.gz
+	}
+
+	menuentry "fossapup64 9.5 - No KMS (Kernel modesetting)" {
+		set isofile="/iso/fossapup64-9.5.iso"
+		loopback loop $isofile
+		linux  (loop)/vmlinuz nomodeset pfix=fsck pmedia=cd
+		initrd (loop)/initrd.gz
+	}
+
+	menuentry "fossapup64 9.5 - Ram Disk SHell" {
+		set isofile="/iso/fossapup64-9.5.iso"
+		loopback loop $isofile
+		linux  (loop)/vmlinuz pfix=rdsh pmedia=cd
+		initrd (loop)/initrd.gz
+	}
+}

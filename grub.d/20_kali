@@ -1,0 +1,35 @@
+# vim: set noet ci pi sts=0 sw=4 ts=4 :
+submenu "Kali 2022-W02-live-amd64" {
+	menuentry "Live system" --hotkey=l {
+		set gfxpayload=keep
+		set isofile="/iso/kali-linux-2022-W02-live-amd64.iso"
+		loopback loop $isofile
+		linux	(loop)/live/vmlinuz boot=live components debug nosplash noeject findiso=${isofile}
+		initrd	(loop)/live/initrd.img
+	}
+	menuentry "Live system (fail-safe mode)" {
+		set isofile="/iso/kali-linux-2022-W02-live-amd64.iso"
+		loopback loop $isofile
+		linux	(loop)/live/vmlinuz-5.15.0-kali2-amd64 boot=live components noeject memtest noapic noapm nodma nomce nolapic nomodeset nosmp nosplash vga=normal
+		initrd	(loop)/live/initrd.img-5.15.0-kali2-amd64
+	}
+
+	menuentry "Live (forensic mode)" {
+		set isofile="/iso/kali-linux-2022-W02-live-amd64.iso"
+		loopback loop $isofile
+		linux (loop)/live/vmlinuz-5.15.0-kali2-amd64 boot=live components quiet splash noeject findiso=${isofile} noswap noautomount
+		initrd (loop)/live/initrd.img-5.15.0-kali2-amd64
+	}
+	menuentry "Live USB Persistence              (check kali.org/prst)" {
+		set isofile="/iso/kali-linux-2022-W02-live-amd64.iso"
+		loopback loop $isofile
+		linux (loop)/live/vmlinuz-5.15.0-kali2-amd64 boot=live components quiet splash noeject findiso=${isofile} persistence
+		initrd (loop)/live/initrd.img-5.15.0-kali2-amd64
+	}
+	menuentry "Live USB Encrypted Persistence    (check kali.org/prst)" {
+		set isofile="/iso/kali-linux-2022-W02-live-amd64.iso"
+		loopback loop $isofile
+		linux (loop)/live/vmlinuz-5.15.0-kali2-amd64 boot=live components quiet splash noeject findiso=${isofile} persistent=cryptsetup persistence-encryption=luks persistence
+		initrd (loop)/live/initrd.img-5.15.0-kali2-amd64
+	}
+}

@@ -1,0 +1,9 @@
+# vim: set noet ci pi sts=0 sw=4 ts=4 :
+submenu "Slax 64bit-9.11.0" {
+	menuentry "Slitaz boot isolinux" {
+		set isofile="/iso/slitaz-rolling-core-5in1_2022-01-16.iso"
+		loopback loop $isofile
+		syslinux_source     (loop)/boot/isolinux/isolinux.bin
+		syslinux_configfile (loop)/boot/isolinux/isolinux.cfg
+	}
+}
