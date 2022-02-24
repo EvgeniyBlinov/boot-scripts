@@ -4,7 +4,7 @@ submenu "Ubuntu 20.04.3-live-server-amd64" {
 		set gfxpayload=keep
 		set isofile="/iso/ubuntu-20.04.3-live-server-amd64.iso"
 		loopback loop $isofile
-		linux	(loop)/casper/vmlinuz   quiet  ---
+		linux	(loop)/casper/vmlinuz iso-scan/filename=${iso_path} debug  ---
 		initrd	(loop)/casper/initrd
 	}
 
@@ -21,11 +21,18 @@ submenu "Ubuntu 20.04.3-live-server-amd64" {
 	submenu 'Boot and Install with the HWE kernel' {
 		menuentry "Install Ubuntu Server" {
 			set gfxpayload=keep
-			set isofile="/iso/ubuntu-20.04.3-live-server-amd64.iso"
-			loopback loop $isofile
-			linux	(loop)/casper/hwe-vmlinuz   quiet  ---
+			set iso_path="/iso/ubuntu-20.04.3-live-server-amd64.iso"
+			loopback loop $iso_path
+			linux	(loop)/casper/hwe-vmlinuz iso-scan/filename=${iso_path} debug  ---
 			initrd	(loop)/casper/hwe-initrd
 		}
 	}
+
+	menuentry "Test memory" {
+		set iso_path="/iso/ubuntu-20.04.3-live-server-amd64.iso"
+		loopback loop $iso_path
+		linux16	(loop)/install/mt86plus
+	}
 }
+
 

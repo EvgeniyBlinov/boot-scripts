@@ -1,13 +1,14 @@
 #!/bin/bash
 DEVICE="$1"
 
-mkdir /mnt/{efi,data}
+mkdir -p /mnt/{efi,data} || true
 mount -o rw,umask=0000 "${DEVICE}2" /mnt/efi
 mount "${DEVICE}3" /mnt/data
 
 # Install GRUB for UEFI and BIOS booting
-grub-install --target=x86_64-efi --recheck --removable --uefi-secure-boot --efi-directory=/mnt/efi --boot-directory=/mnt/efi/boot
-grub-install --target=i386-pc --recheck --boot-directory=/mnt/data/boot "${DEVICE}"
+grub-install --target=x86_64-efi --recheck --removable --uefi-secure-boot --efi-directory=/mnt/efi --boot-directory=/mnt/data/boot --root-directory=/mnt/data
+grub-install --target=i386-pc    --recheck --removable --uefi-secure-boot --efi-directory=/mnt/efi --boot-directory=/mnt/data/boot --root-directory=/mnt/data
+grub-install --target=i386-pc --recheck --boot-directory=/mnt/data/boot --root-directory=/mnt/data "${DEVICE}"
 
 # Remove problematic files
 rm /mnt/efi/EFI/BOOT/BOOTX64.CSV
